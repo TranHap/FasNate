@@ -1,108 +1,41 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useMetamask, useUser, useAddress, useDisconnect, useLogout,useLogin } from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
-import Image from "next/image";
 import { NextPage } from "next";
-
+import { useEffect, useState } from "react";
+import { SimpleGrid, Box,Image, Flex, Link, Text, Heading } from "@chakra-ui/react";
 const Home: NextPage = () => {
+  const address = useAddress();
+  const disconnect = useDisconnect();
+  const connect = useMetamask();
+  const { login } = useLogin();
+  const { logout } = useLogout();
+  const { user, isLoggedIn } = useUser();
+  const [secret, setSecret] = useState();
+
+  const getSecret = async () => {
+    const res = await fetch("/api/secret");
+    const data = await res.json();
+    setSecret(data.message);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>
-            Welcome to{" "}
-            <span className={styles.gradientText0}>
-              <a
-                href="https://thirdweb.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                thirdweb.
-              </a>
-            </span>
-          </h1>
-
-          <p className={styles.description}>
-            Get started by configuring your desired network in{" "}
-            <code className={styles.code}>src/index.js</code>, then modify the{" "}
-            <code className={styles.code}>src/App.js</code> file!
-          </p>
-
-          <div className={styles.connect}>
-            <ConnectWallet
-              dropdownPosition={{
-                side: "bottom",
-                align: "center",
-              }}
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://portal.thirdweb.com/"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/portal-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText1}>Portal ➜</h2>
-              <p>
-                Guides, references, and resources that will help you build with
-                thirdweb.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/dashboard"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/dashboard-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText2}>Dashboard ➜</h2>
-              <p>
-                Deploy, configure, and manage your smart contracts from the
-                dashboard.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/templates"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/templates-preview.png"
-              alt="Placeholder preview of templates"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText3}>Templates ➜</h2>
-              <p>
-                Discover and clone template projects showcasing thirdweb
-                features.
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </main>
+    <Box m={1}>
+       <SimpleGrid columns={2} spacing={10} p={10}>
+          <Flex justifyContent={"center"} direction="column" gap={5}>
+            <Heading size='lg' fontSize='50px' color="white">
+              Sustainable Fashion Is Coming In Digitalized Form
+            </Heading>
+            <Text color="white">
+              Applying blockchain technology, we hope to unlock the power of decentralized network
+              application. As the society enters the new era, in which digital presence and online
+              platforms have became the second identity of ourselves, the idea of real world objects
+              is only limited by humans' imagination. As we envision a future where real-world objects 
+              are seamlessly connected to the digital space, fashion items haven't escaped our notice.
+            </Text>
+          </Flex>
+          <Image src="background.png" alt="background" />
+        </SimpleGrid>
+  </Box>
   );
 };
 

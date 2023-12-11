@@ -3,6 +3,13 @@
   max-width: 1440px;
   padding: 0 1rem;
   margin: 0 auto;
+  /* background:  -webkit-linear-gradient(#40E0D0, #FF8C00, #FF0080); */
+  background: #070707;
+  min-height: 100vh;
+}
+
+.navbar{
+  background: 070707;
 }
 
 .gradientText0 {
